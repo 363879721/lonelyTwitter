@@ -24,7 +24,7 @@ public abstract class Tweet implements Tweetable{
         this.date = date;
     }
 
-    public void setMessage(String message){
+    public void setMessage(String message) throws TweetTooLongException{
         if (message.length() <=140){
             this.message = message;
         }
