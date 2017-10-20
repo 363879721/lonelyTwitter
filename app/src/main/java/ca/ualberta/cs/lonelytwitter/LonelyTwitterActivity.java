@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,8 +35,11 @@ public class LonelyTwitterActivity extends Activity {
 	private ListView oldTweetsList;
 	private ArrayList<NormalTweet> tweetList = new ArrayList<NormalTweet>();
 	private ArrayAdapter<NormalTweet> adapter;
+	private LonelyTwitterActivity activity = this;
 
-
+	public ListView getOldTweetsList(){
+		return oldTweetsList;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class LonelyTwitterActivity extends Activity {
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
 		Button searchButton = (Button) findViewById(R.id.search);
+		Button clearButton = (Button) findViewById(R.id.clear);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +61,19 @@ public class LonelyTwitterActivity extends Activity {
 				tweetList.add(newTweet);
 				adapter.notifyDataSetChanged();
 				//saveInFile(); // TODO replace this with elastic search
-
 				ElasticsearchTweetController.AddTweetsTask addTweetsTask = new ElasticsearchTweetController.AddTweetsTask();
 				addTweetsTask.execute(newTweet);
+
+
+			}
+		});
+
+		clearButton.setOnClickListener(new View.OnClickListener(){
+			public void onClick(View view){
+				setResult(RESULT_OK);
+				tweetList.clear();
+				deleteFile(FILENAME);
+				adapter.notifyDataSetChanged();
 
 			}
 		});
@@ -79,6 +94,16 @@ public class LonelyTwitterActivity extends Activity {
 
 				adapter.notifyDataSetChanged();
 
+			}
+		});
+
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+				Intent intent = new Intent(activity, EditTweetActivity.class);
+				String Tweets = ((TextView) view).getText().toString();
+				intent.putExtra("data",Tweets);
+				startActivity(intent);
 			}
 		});
 
