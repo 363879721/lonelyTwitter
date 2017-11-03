@@ -18,7 +18,7 @@ import io.searchbox.core.SearchResult;
 /**
  * Created by romansky on 10/20/16.
  */
-public class ElasticsearchTweetController {
+class ElasticsearchTweetController {
     private static JestDroidClient client;
 
     // TODO we need a function which adds tweets to elastic search
@@ -87,8 +87,8 @@ public class ElasticsearchTweetController {
 
 
 
-
-    public static void verifySettings() {
+    //change the method from public to private, since it is only called in this class.
+    private static void verifySettings() {
         if (client == null) {
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
             DroidClientConfig config = builder.build();

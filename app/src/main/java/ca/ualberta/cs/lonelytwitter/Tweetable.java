@@ -2,10 +2,10 @@ package ca.ualberta.cs.lonelytwitter;
 
 
 import java.util.Date;
+interface Tweetable {
+    //remove modifier public since it is redundant for interface methods.
+    String getMessage();
 
-public interface Tweetable {
-    public String getMessage();
-
-    public Date getDate();
+    Date getDate();
 
 }

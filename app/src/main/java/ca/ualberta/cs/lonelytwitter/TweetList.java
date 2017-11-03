@@ -7,8 +7,9 @@ import java.util.Comparator;
 /**
  * Created by michael on 2017-10-12.
  */
+//change the class to private since all the call will be in the package.
 
-public class TweetList {
+class TweetList {
 
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 
@@ -35,7 +36,7 @@ public class TweetList {
         tweets.remove(tweet);
     }
 
-    public Tweet getTweet(int index){
+    public Tweet getTweet(){
 
         Collections.sort(tweets,new Comparator<Tweet>() {
             public int compare(Tweet t1, Tweet t2){
@@ -43,8 +44,8 @@ public class TweetList {
             }
 
         });
-
-        return tweets.get(index);
+        // change the parameter to 0 since it is always 0
+        return tweets.get(0);
     }
 
     public int getCount(){

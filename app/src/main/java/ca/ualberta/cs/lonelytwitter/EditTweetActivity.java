@@ -1,20 +1,19 @@
 package ca.ualberta.cs.lonelytwitter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 public class EditTweetActivity extends Activity {
-    private TextView detailView;
+    //we can convert the field to a local variable. we don't need to declare it since only this class uses it.
+    //private TextView detailView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_tweet);
 
-        detailView = (TextView) findViewById(R.id.textView);
+        TextView detailView = (TextView) findViewById(R.id.textView);
         String s = getIntent().getStringExtra("data");
         detailView.setText(s);
-
     }
 }
